@@ -1,79 +1,78 @@
-// Chapter 6 Project.cpp : This file contains the 'main' function.
-// Program one is about Rectange properties
-// Using modular function for input, validation, calciulations and output
-// Pass values by reference when functions retunr multiple results
-// calculate and display the perimeter and area of a rectangle
-// implement repition controlled by the user
-//
+// Chapter 6 Project.cpp : This file contains project 2- Safest driving area program 
+// Write modular functions to gather and validate accident date 
+// use comparison functinos (isLower) to dtermine minumum values 
+// Implement a program that identifies the safest region by number of accidents 
+// display results clearly using modular output funcitons 
+// 
+// 
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main()
 {
 
-	void getLength_Width(double& length, double& width);
-	double calcPerimeter(double length, double width);
-	double calcArea(double length, double width);
+	void getRegInfo(string & regionName, int& accidents);
+	bool isLower(int firsr, int second);
+	void showLowest(const string & safestRegion, int accidents);
 
-	void displayProperties(double length, double width, double perimeter, double area);
+	string regionName;
+	int accidents;
 
-	double length, width, perimeter, area;
-	char choice;
+	string safestRegion;
+	int lowestAccidents;
 
-	do {
-		getLength_Width(length, width);
+	cout << "Enter accident data for 5 regions ( North, South, East, West, Central)  \n";
 
-		perimeter = calcPerimeter(length, width);
-		area = calcArea(length, width);
+	getRegInfo(regionName, accidents);
+	safestRegion = regionName;
+	lowestAccidents = accidents;
 
-		displayProperties(length, width, perimeter, area);
+	for (int i = 0; i < 4; i++)
+	{
+		getRegInfo(regionName, accidents);
+		if (isLower(accidents, lowestAccidents))
+		{
+			lowestAccidents = accidents;
+			safestRegion = regionName;
 
-		cout << "Would you like to process another rectangle? (Y/N); ";
-		cin >> choice;
+		}
 
-	} while (choice == 'Y' || choice == 'y');
-	cout << "Goodbye " << endl;
+	}
+
+	showLowest(safestRegion, lowestAccidents);
+
 	return 0;
-} 
-void getLength_Width(double& length, double& width)
+}
+void getRegInfo(string& regionName, int& accidents)
 {
+	cout << "Enter region name: ";
+	cin >> regionName;
+
 	do {
-		cout << "Enter the leght of the rectangle must be greater than 0: ";
-		cin >> length;
-		cout << endl;
+		cout << "Enter number of accidents (>= 0); ";
+		cin >> accidents;
 
-		if (length <= 0)
-			cout << "Invalid entry. Length must be greater than 0." << endl;
-	} while (length <= 0);
-	do {
-		cout << "Enter the width of the rectangle must be greater than 0: ";
-		cin >> width;
-		cout << endl;
+		if (accidents < 0)
 
-		if (width <= 0)
-			cout << "Invalid entry. Width must be greater than 0." << endl;
-	} while (width <= 0);
+			cout << "Invalid input. Number of accidents must be non-negative.\n";
 
+	} while (accidents < 0);
 }
-double calcPerimeter(double length, double width)
+
+bool isLower(int first, int second)
 {
-	return 2 * (length + width);
+
+	return first <= second;
 }
-double calcArea(double length, double width)
+
+void showLowest(const string& safestRegion, int accidents)
+
 {
-	return length * width;
-}
-void displayProperties(double length, double width, double perimeter, double area)
-{
-	cout << "Rectangle properties: " << endl;
-	cout << "Length: " << length << endl;
-	cout << "Width: " << width << endl;
-	cout << "Perimeter: " << perimeter << endl;
-	cout << "Area: " << area << endl;
-	cout << endl;
-
-
+	cout << "Safest Region: " << safestRegion << endl;
+	cout << "Number of accidents: " << accidents << endl;
 
 
 }
+		
