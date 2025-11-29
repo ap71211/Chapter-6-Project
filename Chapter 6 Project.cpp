@@ -22,14 +22,14 @@ int main()
 
 	cout << fixed << setprecision(1);
 
-	cout << "Enter score for judge 1: \n";
+	cout << "Enter score for judge 1: \n"; 
 	score = getScore();
 	total = score;
 
 	minScore = score;
 	maxScore = score;
 
-	for (int i = 2; i <= 5; i++)
+	for (int i = 2; i <= 5; i++) 
 	{
 		cout << "Enter score for judge " << i << " : \n";
 		score = getScore();
