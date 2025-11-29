@@ -1,79 +1,46 @@
-// Chapter 6 Project.cpp : This file contains the 'main' function.
-// Program one is about Rectange properties
-// Using modular function for input, validation, calciulations and output
-// Pass values by reference when functions retunr multiple results
-// calculate and display the perimeter and area of a rectangle
-// implement repition controlled by the user
+// Chapter 6 Project.cpp : Project 3 is a program that converts farenheit temperatures to celsius temperatures
+// and displays a table of the conversions from 0 to 20 degrees farenheit.
+//
 //
 
 #include <iostream>
+#include <iomanip>
 using namespace std;
+
+const int MIN_F = 0;
+const int MAX_F = 20;
+double getCelsius(double fTemp);
+
+// Function is able to exchance the max and min to adjust program to different ranges
+// converts the farenheit temperature to celsius temperature
+// using the formula C = (5/9) * (F - 32)
+// displays a table of farenheit temperatures and their celsius equivalents
+// from 0 to 20 degrees farenheit
+
 
 int main()
 {
 
-	void getLength_Width(double& length, double& width);
-	double calcPerimeter(double length, double width);
-	double calcArea(double length, double width);
-
-	void displayProperties(double length, double width, double perimeter, double area);
-
-	double length, width, perimeter, area;
-	char choice;
-
-	do {
-		getLength_Width(length, width);
-
-		perimeter = calcPerimeter(length, width);
-		area = calcArea(length, width);
-
-		displayProperties(length, width, perimeter, area);
-
-		cout << "Would you like to process another rectangle? (Y/N); ";
-		cin >> choice;
-
-	} while (choice == 'Y' || choice == 'y');
-	cout << "Goodbye " << endl;
-	return 0;
-} 
-void getLength_Width(double& length, double& width)
-{
-	do {
-		cout << "Enter the leght of the rectangle must be greater than 0: ";
-		cin >> length;
-		cout << endl;
-
-		if (length <= 0)
-			cout << "Invalid entry. Length must be greater than 0." << endl;
-	} while (length <= 0);
-	do {
-		cout << "Enter the width of the rectangle must be greater than 0: ";
-		cin >> width;
-		cout << endl;
-
-		if (width <= 0)
-			cout << "Invalid entry. Width must be greater than 0." << endl;
-	} while (width <= 0);
-
-}
-double calcPerimeter(double length, double width)
-{
-	return 2 * (length + width);
-}
-double calcArea(double length, double width)
-{
-	return length * width;
-}
-void displayProperties(double length, double width, double perimeter, double area)
-{
-	cout << "Rectangle properties: " << endl;
-	cout << "Length: " << length << endl;
-	cout << "Width: " << width << endl;
-	cout << "Perimeter: " << perimeter << endl;
-	cout << "Area: " << area << endl;
+	cout << "Celsius Temperature Table\n"; // Title of the table
 	cout << endl;
 
+	cout << setw(12) << "Fahrenheit" << setw(12) << "Celsius" << endl; //  Header for the table 
+	cout << "----------------------------------" << endl;
 
+	cout << fixed << setprecision(1);
 
+	for (int f = MIN_F; f <= MAX_F; f++) // Loop to display the table from 0 to 20 degrees farenheit
+	{
+		double c = getCelsius(f); 
 
+		cout << setw(12) << f << setw(12) << c << endl;
+	}
+
+	return 0;
+
+}
+double getCelsius(double fTemp)	// Function to convert farenheit to celsius
+{
+	double cTemp = (5.0 / 9.0) * (fTemp - 32); // Conversion formula
+	return cTemp;
 }
