@@ -1,79 +1,85 @@
 // Chapter 6 Project.cpp : This file contains the 'main' function.
-// Program one is about Rectange properties
-// Using modular function for input, validation, calciulations and output
-// Pass values by reference when functions retunr multiple results
-// calculate and display the perimeter and area of a rectangle
-// implement repition controlled by the user
-//
+// 
 
 #include <iostream>
+#include <iomanip>
 using namespace std;
+
+double getScore();
+bool isLower(double a, double b);
+bool isHigher(double a, double b);
+double calcAverage(double total, double minScore, double maxScore);
+
+// calculates the aveerage of the middle three scores from five judges 
+// inputs are five scores from judges between 0 and 10
 
 int main()
 {
 
-	void getLength_Width(double& length, double& width);
-	double calcPerimeter(double length, double width);
-	double calcArea(double length, double width);
+	double score;
+	double total = 0;
+	double minScore, maxScore;
 
-	void displayProperties(double length, double width, double perimeter, double area);
+	cout << fixed << setprecision(1);
 
-	double length, width, perimeter, area;
-	char choice;
+	cout << "Enter score for judge 1: \n";
+	score = getScore();
+	total = score;
 
-	do {
-		getLength_Width(length, width);
+	minScore = score;
+	maxScore = score;
 
-		perimeter = calcPerimeter(length, width);
-		area = calcArea(length, width);
+	for (int i = 2; i <= 5; i++)
+	{
+		cout << "Enter score for judge " << i << " : \n";
+		score = getScore();
+		total += score;
 
-		displayProperties(length, width, perimeter, area);
+		if (isLower(score, minScore)) // update min score
+			minScore = score;
 
-		cout << "Would you like to process another rectangle? (Y/N); ";
-		cin >> choice;
+		if (isHigher(score, maxScore)) // update max score
+			maxScore = score;
 
-	} while (choice == 'Y' || choice == 'y');
-	cout << "Goodbye " << endl;
+	}
+
+	double average = calcAverage(total, minScore, maxScore); // calculate average of middle three scores
+	cout << "\nFinal Score (average of middle 3 scores): " << average << endl;
 	return 0;
-} 
-void getLength_Width(double& length, double& width)
+
+
+}
+
+double getScore() // function to get a valid score between 0 and 10
 {
+	double score;
 	do {
-		cout << "Enter the leght of the rectangle must be greater than 0: ";
-		cin >> length;
-		cout << endl;
+		cout << "Enter a score (0-10): ";
+		cin >> score;
 
-		if (length <= 0)
-			cout << "Invalid entry. Length must be greater than 0." << endl;
-	} while (length <= 0);
-	do {
-		cout << "Enter the width of the rectangle must be greater than 0: ";
-		cin >> width;
-		cout << endl;
+		if (score < 0 || score > 10)
+			cout << "Invalid input. Score must be between 0 and 10.\n";
+	} while (score < 0 || score > 10);
 
-		if (width <= 0)
-			cout << "Invalid entry. Width must be greater than 0." << endl;
-	} while (width <= 0);
+	return score;
+
 
 }
-double calcPerimeter(double length, double width)
+
+bool isLower(double a, double b) // function to check if a is lower than or equal to b
 {
-	return 2 * (length + width);
+	return a <= b;
+
 }
-double calcArea(double length, double width)
+
+bool isHigher(double a, double b) // funciton to chec if a is higher than or equal to b 
 {
-	return length * width;
+	return a >= b;
 }
-void displayProperties(double length, double width, double perimeter, double area)
+
+double calcAverage(double total, double minScore, double maxScore) 
 {
-	cout << "Rectangle properties: " << endl;
-	cout << "Length: " << length << endl;
-	cout << "Width: " << width << endl;
-	cout << "Perimeter: " << perimeter << endl;
-	cout << "Area: " << area << endl;
-	cout << endl;
-
-
-
+	double middleTotal = total - minScore - maxScore;
+	return middleTotal / 3.0;
 
 }
