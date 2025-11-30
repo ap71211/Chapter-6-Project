@@ -3,83 +3,145 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 using namespace std;
 
-double getScore();
-bool isLower(double a, double b);
-bool isHigher(double a, double b);
-double calcAverage(double total, double minScore, double maxScore);
+const double SQFT_PER_GALLON = 110.0;
+const double LABOR_HOURS_PER_GALLON = 8.0;
+const double LABOR_RATE = 25.0;
 
-// calculates the aveerage of the middle three scores from five judges 
-// inputs are five scores from judges between 0 and 10
+int getRooms();
+double getSqFt();
+double getPricePerGallon();
+int gallonsForRoom(double sqft);
+double laborForRoom(double sqft);
+
+void displayEstimate(double paintCharge, int gallonsNeeded, double laborCharge, double laborHours);
 
 int main()
 {
 
-	double score;
-	double total = 0;
-	double minScore, maxScore;
+	int numRooms;
+	double paintCharge = 0, laborCharge = 0, laborHours = 0;
+	int gallonsNeeded = 0;
 
-	cout << fixed << setprecision(1);
+	numRooms = getRooms();
 
-	cout << "Enter score for judge 1: \n"; 
-	score = getScore();
-	total = score;
-
-	minScore = score;
-	maxScore = score;
-
-	for (int i = 2; i <= 5; i++) 
+	for (int i = 1; i <= numRooms; i++)
 	{
-		cout << "Enter score for judge " << i << " : \n";
-		score = getScore();
-		total += score;
+		cout << "Room" << i << endl;
 
-		if (isLower(score, minScore)) // update min score
-			minScore = score;
+		double sqft = getSqFt();
+		int gallons = gallonsForRoom(sqft);
+		double pricePerGallon = getPricePerGallon();
+		double labor = laborForRoom(sqft);
 
-		if (isHigher(score, maxScore)) // update max score
-			maxScore = score;
+		gallonsNeeded += gallons;
+		paintCharge += gallons * pricePerGallon;
+		laborHours += labor;
+		laborCharge += labor * LABOR_RATE;
 
 	}
+	displayEstimate(paintCharge, gallonsNeeded, laborCharge, laborHours);
 
-	double average = calcAverage(total, minScore, maxScore); // calculate average of middle three scores
-	cout << "\nFinal Score (average of middle 3 scores): " << average << endl;
 	return 0;
 
 
 }
 
-double getScore() // function to get a valid score between 0 and 10
+int getRooms()
 {
-	double score;
+
+	int rooms;
 	do {
-		cout << "Enter a score (0-10): ";
-		cin >> score;
+		cout << "Enter number of rooms to be painted (>= 1): ";
+		cin >> rooms;
 
-		if (score < 0 || score > 10)
-			cout << "Invalid input. Score must be between 0 and 10.\n";
-	} while (score < 0 || score > 10);
+		if (rooms < 1)
+			cout << "Invalid. Must be at least 1. \n";
 
-	return score;
+
+	} while (rooms < 1);
+
+	return rooms;
+
 
 
 }
 
-bool isLower(double a, double b) // function to check if a is lower than or equal to b
+double getSqFt()
 {
-	return a <= b;
+
+	double sqft;
+	do {
+		cout << "Enter square feet of wall space (>0): ";
+		cin >> sqft; 
+		if (sqft <= 0)
+			cout << "Invalid. Must be positive nunber. \n";
+
+	} while (sqft <= 0);
+
+	return sqft;
+
 
 }
 
-bool isHigher(double a, double b) // funciton to chec if a is higher than or equal to b 
+double getPricePerGallon()
 {
-	return a >= b;
+	double price;
+	do {
+
+
+		cout << "Enter price per Gallon (>= $10): ";
+		cin >> price;
+
+		if (price < 10)
+			cout << "Invalid. Must be at least $10. \n";
+
+
+	} while (price < 10);
+
+	return price;
+
 }
 
-double calcAverage(double total, double minScore, double maxScore) 
+int gallonsForRoom(double sqft)
 {
-	double middleTotal = total - minScore - maxScore;
-	return middleTotal / 3.0;
+
+	return ceil(sqft / SQFT_PER_GALLON);
+
 
 }
+
+double laborForRoom(double sqft)
+{
+
+	return (sqft / SQFT_PER_GALLON) * LABOR_HOURS_PER_GALLON;
+
+
+}
+
+void displayEstimate(double paintCharge, int gallonsNeeded, double laborCharge, double laborHours)
+
+{
+
+	cout << fixed << setprecision(2);
+
+	double totalCost = paintCharge + laborCharge;
+
+	cout << endl;
+	cout << "--Paint Job Estimate per rooms inputed--\n";
+	cout << "Gallons of paint required:    " << gallonsNeeded << endl;
+	cout << "Hours of labor required:      " << laborHours << endl;
+	cout << "Cost of paint :              $" << paintCharge << endl;
+	cout << "Labor charges:               $" << laborCharge << endl;
+	cout << endl;
+	cout << "Total cost of paint job:     $" << totalCost << endl;
+	cout << endl;
+
+
+
+
+}
+
+
