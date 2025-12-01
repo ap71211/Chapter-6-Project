@@ -1,4 +1,5 @@
 // Chapter 6 Project.cpp : This file contains the 'main' function.
+// Program to calculate the average of the middle three scores from five judges
 // 
 
 #include <iostream>
@@ -18,7 +19,7 @@ int main()
 
 	double score;
 	double total = 0;
-	double minScore, maxScore;
+	double minScore, maxScore; // to track min and max scores
 
 	cout << fixed << setprecision(1);
 
