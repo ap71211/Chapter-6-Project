@@ -24,10 +24,10 @@ int main()
 	do {
 		getLength_Width(length, width);
 
-		perimeter = calcPerimeter(length, width);
+		perimeter = calcPerimeter(length, width); // function call to calculate perimeter
 		area = calcArea(length, width);
 
-		displayProperties(length, width, perimeter, area);
+		displayProperties(length, width, perimeter, area); // function call to display rectangle properties
 
 		cout << "Would you like to process another rectangle? (Y/N); ";
 		cin >> choice;
@@ -36,7 +36,7 @@ int main()
 	cout << "Goodbye " << endl;
 	return 0;
 } 
-void getLength_Width(double& length, double& width)
+void getLength_Width(double& length, double& width) // pass by reference
 {
 	do {
 		cout << "Enter the leght of the rectangle must be greater than 0: ";
@@ -56,15 +56,15 @@ void getLength_Width(double& length, double& width)
 	} while (width <= 0);
 
 }
-double calcPerimeter(double length, double width)
+double calcPerimeter(double length, double width) 
 {
-	return 2 * (length + width);
+	return 2 * (length + width);// formula for perimeter
 }
-double calcArea(double length, double width)
+double calcArea(double length, double width) 
 {
-	return length * width;
+	return length * width;// formula for area
 }
-void displayProperties(double length, double width, double perimeter, double area)
+void displayProperties(double length, double width, double perimeter, double area) // display rectangle properties
 {
 	cout << "Rectangle properties: " << endl;
 	cout << "Length: " << length << endl;
