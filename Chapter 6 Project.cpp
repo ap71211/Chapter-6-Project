@@ -13,11 +13,11 @@ using namespace std;
 int main()
 {
 
-	void getRegInfo(string & regionName, int& accidents);
-	bool isLower(int firsr, int second);
+	void getRegInfo(string & regionName, int& accidents); 
+	bool isLower(int firsr, int second); 
 	void showLowest(const string & safestRegion, int accidents);
 
-	string regionName;
+	string regionName; 
 	int accidents;
 
 	string safestRegion;
@@ -45,7 +45,7 @@ int main()
 
 	return 0;
 }
-void getRegInfo(string& regionName, int& accidents)
+void getRegInfo(string& regionName, int& accidents) // function to get region name and number of accidents
 {
 	cout << "Enter region name: ";
 	cin >> regionName;
@@ -61,13 +61,13 @@ void getRegInfo(string& regionName, int& accidents)
 	} while (accidents < 0);
 }
 
-bool isLower(int first, int second)
+bool isLower(int first, int second) // function to compare two accident numbers
 {
 
-	return first <= second;
+	return first <= second; // returns true if first is less than or equal to second
 }
 
-void showLowest(const string& safestRegion, int accidents)
+void showLowest(const string& safestRegion, int accidents) // function to display safest region and number of accidents
 
 {
 	cout << "Safest Region: " << safestRegion << endl;
