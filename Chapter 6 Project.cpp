@@ -1,14 +1,15 @@
-// Chapter 6 Project.cpp : This file contains the 'main' function.
-// 
+// This program estimates the cost of a paint job based on user input for number of rooms,
+// square footage, and price per gallon of paint.
+
 
 #include <iostream>
 #include <iomanip>
 #include <cmath>
 using namespace std;
 
-const double SQFT_PER_GALLON = 110.0;
-const double LABOR_HOURS_PER_GALLON = 8.0;
-const double LABOR_RATE = 25.0;
+const double SQFT_PER_GALLON = 110.0; // square feet per gallon
+const double LABOR_HOURS_PER_GALLON = 8.0; // labor hours per gallon
+const double LABOR_RATE = 25.0; // labor rate per hour
 
 int getRooms();
 double getSqFt();
@@ -25,9 +26,9 @@ int main()
 	double paintCharge = 0, laborCharge = 0, laborHours = 0;
 	int gallonsNeeded = 0;
 
-	numRooms = getRooms();
+	numRooms = getRooms(); // get number of rooms
 
-	for (int i = 1; i <= numRooms; i++)
+	for (int i = 1; i <= numRooms; i++) // loop for each room
 	{
 		cout << "Room" << i << endl;
 
@@ -49,7 +50,7 @@ int main()
 
 }
 
-int getRooms()
+int getRooms() // function to get number of rooms
 {
 
 	int rooms;
@@ -69,7 +70,7 @@ int getRooms()
 
 }
 
-double getSqFt()
+double getSqFt() // function to get square footage
 {
 
 	double sqft;
@@ -86,7 +87,7 @@ double getSqFt()
 
 }
 
-double getPricePerGallon()
+double getPricePerGallon() // function to get price per gallon
 {
 	double price;
 	do {
@@ -105,7 +106,7 @@ double getPricePerGallon()
 
 }
 
-int gallonsForRoom(double sqft)
+int gallonsForRoom(double sqft) // function to calculate gallons needed
 {
 
 	return ceil(sqft / SQFT_PER_GALLON);
@@ -113,7 +114,7 @@ int gallonsForRoom(double sqft)
 
 }
 
-double laborForRoom(double sqft)
+double laborForRoom(double sqft) // function to calculate labor hours needed
 {
 
 	return (sqft / SQFT_PER_GALLON) * LABOR_HOURS_PER_GALLON;
@@ -121,7 +122,7 @@ double laborForRoom(double sqft)
 
 }
 
-void displayEstimate(double paintCharge, int gallonsNeeded, double laborCharge, double laborHours)
+void displayEstimate(double paintCharge, int gallonsNeeded, double laborCharge, double laborHours) // function to display estimate
 
 {
 
